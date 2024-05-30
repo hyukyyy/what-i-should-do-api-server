@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/WhatIShouldDoApiServer.iml" filepath="$PROJECT_DIR$/.idea/WhatIShouldDoApiServer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WhatIShouldDoApiServer.WhatIShouldDoApiServer.main~1.iml" filepath="$PROJECT_DIR$/.idea/modules/WhatIShouldDoApiServer.WhatIShouldDoApiServer.main~1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WhatIShouldDoApiServer.WhatIShouldDoApiServer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/WhatIShouldDoApiServer.WhatIShouldDoApiServer.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WhatIShouldDoApiServer.WhatIShouldDoApiServer.test.iml" filepath="$PROJECT_DIR$/.idea/modules/WhatIShouldDoApiServer.WhatIShouldDoApiServer.test.iml" />
     </modules>
   </component>
 </project>

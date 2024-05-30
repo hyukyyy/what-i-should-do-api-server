@@ -1,16 +1,13 @@
 package com.wicd.WhatIShouldDoApiServer.api.auth.controller;
 
+import com.wicd.WhatIShouldDoApiServer.data.dto.TestUserDto;
 import com.wicd.WhatIShouldDoApiServer.data.dto.UserDto;
 import com.wicd.WhatIShouldDoApiServer.data.entity.User;
 import com.wicd.WhatIShouldDoApiServer.data.repository.UserRepository;
 import com.wicd.WhatIShouldDoApiServer.utils.RandomStringUtil;
-import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -34,7 +31,6 @@ public class AuthControllerTest {
 
     @BeforeEach
     public void clearUserTable() {
-        System.out.println("BeforeEach working");
         userRepository.deleteAll();
     }
 
@@ -47,7 +43,8 @@ public class AuthControllerTest {
         String password = RandomStringUtil.createRandomLengthString(3, 50);
         String nickname = RandomStringUtil.createRandomLengthString(3, 50);
 
-        UserDto testCase1 = new UserDto(username, password, nickname);
+        TestUserDto testCase1 = new TestUserDto(username, password, nickname);
+
         ResponseEntity<User> response = restTemplate.postForEntity(url, testCase1, User.class);
 
         assert(response.getStatusCode().is2xxSuccessful());
