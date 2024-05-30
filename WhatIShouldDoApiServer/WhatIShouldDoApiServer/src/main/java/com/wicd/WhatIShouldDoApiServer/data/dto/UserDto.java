@@ -23,7 +23,7 @@ public class UserDto implements Serializable {
     String username;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Length(min = 3, max = 50, message = "password size error")
+    @Length(min = 3, max = 100, message = "password size error")
     @NotBlank(message = "password cannot be blank")
     String password;
 

@@ -1,8 +1,10 @@
 package com.wicd.WhatIShouldDoApiServer.data.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import java.io.Serializable;
 
@@ -17,10 +19,9 @@ import java.io.Serializable;
 public class LoginDto implements Serializable {
 
     @NotBlank(message = "username cannot be blank")
-    @Size(min = 3, max = 50, message = "invalid username length")
     String username;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank(message = "password cannot be blank")
-    @Size(min = 3, max = 100, message = "invalid password length")
     String password;
 }

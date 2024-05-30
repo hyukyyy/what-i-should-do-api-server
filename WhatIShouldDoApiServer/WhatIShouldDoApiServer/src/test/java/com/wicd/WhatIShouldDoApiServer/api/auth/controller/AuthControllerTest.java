@@ -1,5 +1,6 @@
 package com.wicd.WhatIShouldDoApiServer.api.auth.controller;
 
+import com.wicd.WhatIShouldDoApiServer.data.dto.TestLoginDto;
 import com.wicd.WhatIShouldDoApiServer.data.dto.TestUserDto;
 import com.wicd.WhatIShouldDoApiServer.data.dto.UserDto;
 import com.wicd.WhatIShouldDoApiServer.data.entity.User;
@@ -34,18 +35,19 @@ public class AuthControllerTest {
         userRepository.deleteAll();
     }
 
-    @DisplayName("signup test")
+    @DisplayName("signup to authenticate test")
     @Test
     void signupTest() {
         String url = "http://localhost:" + randomServerPort + "/auth/signup";
 
         String username = RandomStringUtil.createRandomLengthEmailPatternString(5, 50);
-        String password = RandomStringUtil.createRandomLengthString(3, 50);
+        String password = RandomStringUtil.createRandomLengthString(3, 100);
         String nickname = RandomStringUtil.createRandomLengthString(3, 50);
 
         TestUserDto testCase = new TestUserDto(username, password, nickname);
 
-//        1. 정상 가입
+//        1. 회원가입 테스트
+//        1-1. 정상 가입
         ResponseEntity<Map> response = restTemplate.postForEntity(url, testCase, Map.class);
         if (!response.getStatusCode().is2xxSuccessful()) {
             System.out.println("wrong request : " + testCase.getUsername() + "/" + testCase.getPassword() + "/" + testCase.getNickname() + "/");
@@ -65,5 +67,38 @@ public class AuthControllerTest {
         ResponseEntity<User> response3 = restTemplate.postForEntity(url, testCase, User.class);
 
         assert (response3.getStatusCode().is4xxClientError());
+
+//        4. authentication (로그인) test
+//        4-1. 정상 로그인
+        String authenticateUrl = "http://localhost:" + randomServerPort + "/auth/authenticate";
+        TestLoginDto loginDto = new TestLoginDto(username, password);
+        ResponseEntity<Map> loginResponse = restTemplate.postForEntity(authenticateUrl, loginDto, Map.class);
+        if (!loginResponse.getStatusCode().is2xxSuccessful()) {
+            System.out.println("wrong login request : " + testCase.getUsername() + "/" + testCase.getPassword() + "/" + testCase.getNickname() + "/");
+            System.out.println("wrong login result : " + response.getBody());
+        }
+
+        assert (loginResponse.getStatusCode().is2xxSuccessful());
+
+        Map<String, String> loginResponseBody = loginResponse.getBody();
+        assert (loginResponseBody.containsKey("accessToken")
+                && loginResponseBody.containsKey("refreshToken")
+                && !loginResponseBody.get("accessToken").isBlank()
+                && !loginResponseBody.get("refreshToken").isBlank());
+
+        //    4-2. 비밀번호 오류
+        loginDto.setPassword(RandomStringUtil.createRandomLengthString(10, 20));
+
+        ResponseEntity<Map> loginResponse2 = restTemplate.postForEntity(authenticateUrl, loginDto, Map.class);
+
+        assert (loginResponse2.getStatusCode().is4xxClientError());
+
+        //    4-2. 존재하지 않는 username 오류
+        loginDto.setPassword(password);
+        loginDto.setUsername(RandomStringUtil.createRandomLengthString(10, 20));
+
+        ResponseEntity<Map> loginResponse3 = restTemplate.postForEntity(authenticateUrl, loginDto, Map.class);
+
+        assert (loginResponse2.getStatusCode().is4xxClientError());
     }
 }
