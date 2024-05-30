@@ -1,8 +1,7 @@
 package com.wicd.WhatIShouldDoApiServer.api.auth.controller;
 
-import com.wicd.WhatIShouldDoApiServer.data.dto.TestLoginDto;
-import com.wicd.WhatIShouldDoApiServer.data.dto.TestUserDto;
-import com.wicd.WhatIShouldDoApiServer.data.dto.UserDto;
+import com.wicd.WhatIShouldDoApiServer.data.dto.auth.TestLoginDto;
+import com.wicd.WhatIShouldDoApiServer.data.dto.auth.TestUserDto;
 import com.wicd.WhatIShouldDoApiServer.data.entity.User;
 import com.wicd.WhatIShouldDoApiServer.data.repository.UserRepository;
 import com.wicd.WhatIShouldDoApiServer.utils.RandomStringUtil;

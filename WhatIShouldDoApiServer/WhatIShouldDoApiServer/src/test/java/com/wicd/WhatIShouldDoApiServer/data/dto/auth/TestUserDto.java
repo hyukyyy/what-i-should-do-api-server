@@ -1,4 +1,4 @@
-package com.wicd.WhatIShouldDoApiServer.data.dto;
+package com.wicd.WhatIShouldDoApiServer.data.dto.auth;
 
 import lombok.*;
 
