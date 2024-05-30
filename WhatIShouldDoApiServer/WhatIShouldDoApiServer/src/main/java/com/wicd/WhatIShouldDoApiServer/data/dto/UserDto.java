@@ -3,6 +3,7 @@ package com.wicd.WhatIShouldDoApiServer.data.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import java.io.Serializable;
 
@@ -18,15 +19,15 @@ import java.io.Serializable;
 public class UserDto implements Serializable {
     @Email(message = "username pattern invalid")
     @NotBlank(message = "username cannot be blank")
-    @Size(min = 3, max = 50, message = "username size error")
+    @Length(min = 3, max = 50, message = "username size error")
     String username;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Size(min = 3, max = 50, message = "password size error")
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Length(min = 3, max = 50, message = "password size error")
     @NotBlank(message = "password cannot be blank")
     String password;
 
-    @Size(min = 3, max = 50, message = "nickname size error")
+    @Length(min = 3, max = 50, message = "nickname size error")
     @NotBlank(message = "nickname cannot be blank")
     String nickname;
 }
