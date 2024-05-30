@@ -39,18 +39,31 @@ public class AuthControllerTest {
     void signupTest() {
         String url = "http://localhost:" + randomServerPort + "/auth/signup";
 
-        String username = RandomStringUtil.createRandomLengthEmailPatternString(3, 50);
+        String username = RandomStringUtil.createRandomLengthEmailPatternString(5, 50);
         String password = RandomStringUtil.createRandomLengthString(3, 50);
         String nickname = RandomStringUtil.createRandomLengthString(3, 50);
 
-        TestUserDto testCase1 = new TestUserDto(username, password, nickname);
+        TestUserDto testCase = new TestUserDto(username, password, nickname);
 
-        ResponseEntity<User> response = restTemplate.postForEntity(url, testCase1, User.class);
+//        1. 정상 가입
+        ResponseEntity<Map> response = restTemplate.postForEntity(url, testCase, Map.class);
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            System.out.println("wrong request : " + testCase.getUsername() + "/" + testCase.getPassword() + "/" + testCase.getNickname() + "/");
+            System.out.println("wrong result : " + response.getBody());
+        }
 
-        assert(response.getStatusCode().is2xxSuccessful());
+        assert (response.getStatusCode().is2xxSuccessful());
 
-        ResponseEntity<User> response2 = restTemplate.postForEntity(url, testCase1, User.class);
+//        2. 중복 가입
+        ResponseEntity<User> response2 = restTemplate.postForEntity(url, testCase, User.class);
 
-        assert(response2.getStatusCode().is4xxClientError());
+        assert (response2.getStatusCode().is4xxClientError());
+
+//        3. username 형식 오류
+        testCase.setUsername(RandomStringUtil.createRandomLengthString(3, 50).replaceAll("@", ""));
+
+        ResponseEntity<User> response3 = restTemplate.postForEntity(url, testCase, User.class);
+
+        assert (response3.getStatusCode().is4xxClientError());
     }
 }

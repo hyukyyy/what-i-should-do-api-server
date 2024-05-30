@@ -18,8 +18,8 @@ import java.io.Serializable;
 @Value
 public class UserDto implements Serializable {
     @Email(message = "username pattern invalid")
-    @NotBlank(message = "username cannot be blank")
     @Length(min = 3, max = 50, message = "username size error")
+    @NotBlank(message = "username cannot be blank")
     String username;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

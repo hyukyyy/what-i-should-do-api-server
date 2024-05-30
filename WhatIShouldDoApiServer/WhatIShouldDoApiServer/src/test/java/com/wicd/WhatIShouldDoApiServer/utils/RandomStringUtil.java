@@ -16,18 +16,19 @@ public class RandomStringUtil {
     }
 
     public static String createRandomEmailPatternString(int randomStrLen) {
-        randomStrLen = randomStrLen - 2;
-        int random1 = (int) (Math.random() * randomStrLen);
+        // @ . random2 random3 최소값 보장을 위해 - 5
+        randomStrLen = randomStrLen - 5;
+        int random1 = (int) (Math.random() * randomStrLen) + 1;
         int randomStrLen2 = randomStrLen - random1;
-        int random2 = (int) (Math.random() * randomStrLen2);
+        int random2 = (int) (Math.random() * randomStrLen2) + 1;
         int randomStrLen3 = randomStrLen2 - random2;
-        int random3 = (int) (Math.random() * randomStrLen3);
+        int random3 = (int) (Math.random() * randomStrLen3) + 1;
 
         return createLengthString(random1)
                 + "@"
                 + createLengthString(random2)
                 + "."
-                + createLengthString(random3);
+                + createLengthString(random3 + 1);
     }
 
     public static String createRandomLengthEmailPatternString(int from, int to) {
