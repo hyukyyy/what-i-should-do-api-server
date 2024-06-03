@@ -8,11 +8,11 @@ import org.springframework.lang.NonNull;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    User save(UserDto user);
-
     Optional<User> findOneWithAuthoritiesByUsername(String username);
 
     Optional<User> findByUsername(@NonNull String username);
 
     void deleteAll();
+
+    Optional<User> findByUserId(@NonNull Long userId);
 }

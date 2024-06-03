@@ -14,15 +14,11 @@ public class TestTaskDto {
     private String content;
     private Integer progress;
     private Long userId;
+    private Long teamId;
 
-    public TestTaskDto(String title, String content) {
+    public TestTaskDto(String title, String content, Long teamId) {
         this.title = title;
         this.content = content;
-    }
-
-    public TestTaskDto(String title2, String content2, Integer progress) {
-        this.title = title;
-        this.content = content;
-        this.progress = progress;
+        this.teamId = teamId;
     }
 }

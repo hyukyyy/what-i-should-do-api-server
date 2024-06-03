@@ -54,5 +54,4 @@ public class AuthController {
     public ResponseEntity<User> getUserInfo(@PathVariable String username) {
         return ResponseEntity.ok(userDetailsService.getUserWithAuthorities(username).get());
     }
-
 }

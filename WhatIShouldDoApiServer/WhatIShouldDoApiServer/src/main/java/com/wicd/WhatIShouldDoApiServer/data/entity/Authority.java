@@ -7,7 +7,6 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity
-@Table(name = "authority")
 @Getter
 @Setter
 @Builder
@@ -15,7 +14,7 @@ import lombok.*;
 @NoArgsConstructor
 public class Authority {
     @Id
-    @Column(name = "authority_name", nullable = false, length = 50)
+    @Column(name = "authority_name",nullable = false, length = 50)
     private String authorityName;
 
 }
